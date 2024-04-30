@@ -26,8 +26,8 @@ import platform
 from abc import ABC, abstractmethod
 
 
-class Button():
-    def paint(self):
+class Button(ABC):
+    def paint(self) -> None:
         pass
 
 
@@ -41,67 +41,79 @@ class MacButton(Button):
         print('Отрисовать кнопку в стиле macOS')
 
 
-class Checkbox():
+class Checkbox(ABC):
     def paint(self):
         pass
 
 
-class WinCheckbox():
+class WinCheckbox(Checkbox):
     def paint(self):
         print('Отрисовать чекбокс в стиле windows')
 
 
-class MacCheckbox():
+class MacCheckbox(Checkbox):
     def paint(self):
         print('Отрисовать чекбокс в стиле macOS')
 
 
 class GUIFactory(ABC):
     @abstractmethod
-    def createButton(self):
+    def createButton(self) -> None:
         pass
 
     @abstractmethod
-    def createCheckbox(self):
+    def createCheckbox(self) -> None:
         pass
 
 
 class WinFactory(GUIFactory):
     def createButton(self):
-        return WinButton
+        return WinButton()
 
     def createCheckbox(self):
-        return WinCheckbox
+        return WinCheckbox()
 
 
 class MacFactory(GUIFactory):
     def createButton(self):
-        return MacButton
+        return MacButton()
 
     def createCheckbox(self):
-        return MacCheckbox
+        return MacCheckbox()
 
 
-class Application():
-    def __init__(self):
-        self.factory = GUIFactory
+class Application:
+    def __init__(self, factory):
+        self.factory = factory
         self.button = None
+        self.checkbox = None
 
     def createUI(self):
-        self.button = self.factory.createButton
+        self.button = self.factory.createButton()
+        self.checkbox = self.factory.createCheckbox()
 
     def paint(self):
         self.button.paint()
+        self.checkbox.paint()
 
-class ApplicationConfigurator():
+
+class ApplicationConfigurator:
     def main(self):
         config_os = platform.system()
 
-        if config_os == 'Windows':
-            self.factory = WinFactory
+        match config_os:
+            case 'Windows':
+                self.factory = WinFactory()
+            case 'Darwin':
+                self.factory = MacFactory()
+            case _:
+                raise Exception("Error! Unknown operating system.")
 
-        elif config_os == 'Darwin':
-            self.factory = MacFactory
+        app = Application(self.factory)
+        app.createUI()
+        app.paint()
 
-        else:
-            raise Exception("Error! Unknown operating system.")
+
+if __name__ == "__main__":
+    configurator = ApplicationConfigurator()
+    configurator.main()
