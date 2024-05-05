@@ -131,4 +131,5 @@ class Application:
 
 
 if __name__ == '__main__':
-    builder = Application.make_car()
+    builder = Application()
+    builder.make_car()
