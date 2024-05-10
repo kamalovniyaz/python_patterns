@@ -17,6 +17,8 @@
 """
 
 from threading import Lock, Thread
+import psycopg2
+from decouple import config
 
 
 class SingletonMeta(type):
@@ -57,12 +59,26 @@ class Singleton(metaclass=SingletonMeta):
         self.value = value
 
     def connect_to_db(self) -> None:
-        pass
+        try:
+            conn = psycopg2.connect(
+                dbname=config('DB_NAME'),
+                user=config('DB_USER'),
+                password=config('DB_PASSWORD'),
+                host=config("DB_HOST"),
+                port=config("DB_PORT")
+            )
+            cursor = conn.cursor()
+            cursor.execute('SELECT * FROM public.tester_customuser;')
+            print(cursor.fetchall())
+            cursor.close()
+            conn.close()
+        except Exception as error:
+            print(f'Не удалось подключиться к БД, ошибка: {error}')
 
 
 def test_singleton(value: str) -> None:
     singleton = Singleton(value)
-    print(singleton.value)
+    singleton.connect_to_db()
 
 
 if __name__ == '__main__':
