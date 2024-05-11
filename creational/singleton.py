@@ -42,9 +42,14 @@ class SingletonMeta(type):
             # зайти внутрь. Однако теперь экземпляр одиночки уже будет создан и
             # поток не сможет пройти через это условие, а значит новый объект не
             # будет создан.
+            print(f"Работает поток с аргументом {args[0]}")
             if cls not in cls._instances:
                 instance = super().__call__(*args, **kwargs)
                 cls._instances[cls] = instance
+                print(f"Поток с аргументом {args[0]} создал объект")
+
+            print(f"Поток с аргументом {args[0]} отработал")
+
 
         return cls._instances[cls]
 
