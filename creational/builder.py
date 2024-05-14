@@ -93,13 +93,13 @@ class CarManualBuilder(Builder):
 
 
 class Director:
-    def create_sport_car(self, builder: Builder):
+    def create_sport_car(self, builder: Builder) -> None:
         builder.set_tires('MICHELIN Pilot Sport 5 245/40/R18 97Y')
         builder.set_engine('2JZ-GE')
         builder.set_seats(2)
         builder.set_car_radio(False)
 
-    def create_family_car(self, builder: Builder):
+    def create_family_car(self, builder: Builder) -> None:
         builder.set_tires('Kumho Ecsta HS52 185/65/R15 88H')
         builder.set_engine('G4LC')
         builder.set_seats(4)
@@ -108,7 +108,7 @@ class Director:
 
 class Application:
     @staticmethod
-    def make_car():
+    def make_car() -> None:
         director = Director()
 
         print('__________Выпустить семейную машину__________')
