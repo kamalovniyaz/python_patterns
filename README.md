@@ -13,7 +13,7 @@
 - [x] Прототип (Prototype)
 
 ### Структурные (Structural)
-- [ ] Адаптер (Adapter)
+- [x] Адаптер (Adapter)
 - [ ] Мост (Bridge)
 - [ ] Компоновщик (Composite)
 - [ ] Декоратор (Decorator)
