@@ -9,31 +9,31 @@ import math
 
 
 class RoundPeg:
-    def __init__(self, radius):
+    def __init__(self, radius: int) -> None:
         self.radius = radius
 
-    def get_radius(self):
+    def get_radius(self) -> int:
         """Вернуть радиус круглого колышка"""
         return int(self.radius)
 
 
 class RoundHole:
-    def __init__(self, radius):
+    def __init__(self, radius: int) -> None:
         self.radius = radius
 
-    def get_radius(self):
+    def get_radius(self) -> int:
         """Вернуть радиус отверстия"""
         return int(self.radius)
 
-    def fits(self, peg: RoundPeg):
+    def fits(self, peg: RoundPeg) -> bool:
         return self.get_radius() >= peg.get_radius()
 
 
 class SquarePeg:
-    def __init__(self, width):
+    def __init__(self, width: int) -> None:
         self.width = width
 
-    def get_width(self):
+    def get_width(self) -> int:
         """Вернуть ширину квадратного колышка"""
         return int(self.width)
 
@@ -41,12 +41,12 @@ class SquarePeg:
 class SquarePegAdapter(RoundPeg):
     """Адаптер позволяет использовать квадратные колышки и круглые отверстия вместе"""
 
-    def __init__(self, peg: SquarePeg):
+    def __init__(self, peg: SquarePeg) -> None:
         self.peg = peg
 
-    def get_radius(self):
+    def get_radius(self) -> int:
         """Вычислить половину диагонали квадратного колышка по теореме Пифагора"""
-        return self.peg.get_width() * math.sqrt((2) / 2)
+        return int(self.peg.get_width() * math.sqrt((2) / 2))
 
 
 if __name__ == '__main__':
