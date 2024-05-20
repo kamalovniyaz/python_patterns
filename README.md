@@ -22,7 +22,7 @@
 
 - [x] Адаптер (Adapter)
 - [x] Мост (Bridge)
-- [ ] Компоновщик (Composite)
+- [x] Компоновщик (Composite)
 - [ ] Декоратор (Decorator)
 - [ ] Фасад (Facade)
 - [ ] Приспособленец (Flyweight)
