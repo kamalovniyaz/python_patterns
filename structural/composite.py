@@ -21,19 +21,20 @@ from typing import List
 
 class Graphic(ABC):
     @abstractmethod
-    def move(self, x, y):
+    def move(self, x: int, y: int) -> None:
         pass
 
-    def draw(self):
+    @abstractmethod
+    def draw(self) -> None:
         pass
 
 
 class Dot(Graphic):
-    def __init__(self, x, y):
+    def __init__(self, x: int, y: int) -> None:
         self.x = x
         self.y = y
 
-    def move(self, x, y):
+    def move(self, x: int, y: int) -> None:
         self.x += x
         self.y += y
 
@@ -42,12 +43,12 @@ class Dot(Graphic):
 
 
 class Circle(Dot):
-    def __init__(self, x, y, radius):
+    def __init__(self, x: int, y: int, radius: int) -> None:
         self.x = x
         self.y = y
         self.radius = radius
 
-    def draw(self):
+    def draw(self) -> None:
         print('Нарисовать окружность в координате X, Y и с радиусом R')
 
 
@@ -55,17 +56,17 @@ class CompoundGraphic(Graphic):
     def __init__(self):
         self.children: List[Graphic] = []
 
-    def add(self, child: Graphic):
+    def add(self, child: Graphic) -> None:
         print('Добавить компонент в список дочерних')
 
-    def remove(self, child: Graphic):
+    def remove(self, child: Graphic) -> None:
         print('Убрать компонент из списка дочерних')
 
-    def move(self, x, y):
+    def move(self, x: int, y: int) -> None:
         for child in self.children:
             child.move(x, y)
 
-    def draw(self):
+    def draw(self) -> None:
         print(" 1. Для каждого дочернего компонента:"
               "- Отрисовать компонент."
               "- Определить координаты максимальной границы."
@@ -76,12 +77,12 @@ class ImageEditor:
     def __init__(self):
         self.all = CompoundGraphic()
 
-    def load(self):
+    def load(self) -> None:
         self.all = CompoundGraphic()
         self.all.add(Dot(1, 2))
         self.all.add(Circle(5, 3, 10))
 
-    def group_selected(self, components: List[Graphic]):
+    def group_selected(self, components: List[Graphic]) -> None:
         group = CompoundGraphic()
         for component in components:
             group.add(component)
