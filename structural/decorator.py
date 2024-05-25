@@ -19,3 +19,94 @@
 сделаем декораторами.
 """
 
+
+class DataSource:
+    """
+    Общий интерфейс компонентов
+    """
+
+    def __init__(self, data):
+        self.data = data
+
+    def write_date(self, data: str) -> None:
+        pass
+
+    def read_date(self) -> None:
+        pass
+
+
+class FileDataSource(DataSource):
+    """
+     Один из конкретных компонентов реализует базовую функциональность
+    """
+
+    def write_date(self, data: str) -> None:
+        print('записать данные в файл')
+
+    def read_date(self) -> None:
+        print('прочитать данные из файла')
+
+
+class DataSourceDecorator(DataSource):
+    """
+    Родитель всех декораторов содержит код обёртывания
+    """
+    wrapper: DataSource
+
+    def __init__(self, source: DataSource):
+        self.wrapper = source
+
+    def write_date(self, data: str) -> None:
+        self.wrapper.write_date(data)
+
+    def read_date(self) -> None:
+        return self.wrapper.read_date()
+
+
+class EncryptedDataSource(DataSourceDecorator):
+    """
+    Конкретные декораторы добавляют что-то своё к базовому поведению обёрнутого компонента.
+    """
+
+    def write_date(self, data: str) -> None:
+        print(f"1. Зашифровать поданные данные."
+              f"2. Передать зашифрованные данные в метод writeData обёрнутого объекта (wrappee)")
+
+    def read_date(self) -> None:
+        print(f"1. Получить данные из метода readData обёрнутого объекта (wrappee)."
+              f"2. Расшифровать их, если они зашифрованы."
+              f"3. Вернуть результат.")
+
+
+class CompressionDecorator(DataSourceDecorator):
+    """
+    Декорировать можно не только базовые компоненты, но и уже обёрнутые объекты.
+    """
+
+    def write_date(self, data: str) -> None:
+        print(f"1. Запаковать поданные данные."
+              f"2. Передать запакованные данные в метод writeData обёрнутого объекта (wrappee)")
+
+    def read_date(self) -> None:
+        print(f"1. Получить данные из метода readData обёрнутого объекта (wrappee)."
+              f"2. Распаковать их, если они запакованы."
+              f"3. Вернуть результат.")
+
+if __name__ == '__main__':
+    file_data_source = FileDataSource('example.txt')
+
+    encrypted_data_source = EncryptedDataSource(file_data_source)
+
+    compressed_and_encrypted_data_source = CompressionDecorator(encrypted_data_source)
+
+    print("Используем FileDataSource:")
+    file_data_source.write_date("Hello, World!")
+    file_data_source.read_date()
+
+    print("Используем EncryptedDataSource:")
+    encrypted_data_source.write_date("Hello, World!")
+    encrypted_data_source.read_date()
+
+    print("Используем CompressionDecorator поверх EncryptedDataSource:")
+    compressed_and_encrypted_data_source.write_date("Hello, World!")
+    compressed_and_encrypted_data_source.read_date()
