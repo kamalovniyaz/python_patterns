@@ -28,10 +28,10 @@ class DataSource:
     def __init__(self, data: str):
         self.data = data
 
-    def write_date(self, data: str) -> None:
+    def write_data(self, data: str) -> None:
         pass
 
-    def read_date(self) -> None:
+    def read_data(self) -> None:
         pass
 
 
@@ -40,10 +40,10 @@ class FileDataSource(DataSource):
      Один из конкретных компонентов реализует базовую функциональность
     """
 
-    def write_date(self, data: str) -> None:
+    def write_data(self, data: str) -> None:
         print('записать данные в файл')
 
-    def read_date(self) -> None:
+    def read_data(self) -> None:
         print('прочитать данные из файла')
 
 
@@ -53,14 +53,14 @@ class DataSourceDecorator(DataSource):
     """
     wrapper: DataSource
 
-    def __init__(self, source: DataSource):
+    def __init__(self, source: DataSource) -> None:
         self.wrapper = source
 
-    def write_date(self, data: str) -> None:
-        self.wrapper.write_date(data)
+    def write_data(self, data: str) -> None:
+        self.wrapper.write_data(data)
 
-    def read_date(self) -> None:
-        return self.wrapper.read_date()
+    def read_data(self) -> None:
+        return self.wrapper.read_data()
 
 
 class EncryptedDataSource(DataSourceDecorator):
@@ -68,11 +68,11 @@ class EncryptedDataSource(DataSourceDecorator):
     Конкретные декораторы добавляют что-то своё к базовому поведению обёрнутого компонента.
     """
 
-    def write_date(self, data: str) -> None:
+    def write_data(self, data: str) -> None:
         print(f"1. Зашифровать поданные данные."
               f"2. Передать зашифрованные данные в метод writeData обёрнутого объекта (wrappee)")
 
-    def read_date(self) -> None:
+    def read_data(self) -> None:
         print(f"1. Получить данные из метода readData обёрнутого объекта (wrappee)."
               f"2. Расшифровать их, если они зашифрованы."
               f"3. Вернуть результат.")
@@ -83,11 +83,11 @@ class CompressionDecorator(DataSourceDecorator):
     Декорировать можно не только базовые компоненты, но и уже обёрнутые объекты.
     """
 
-    def write_date(self, data: str) -> None:
+    def write_data(self, data: str) -> None:
         print(f"1. Запаковать поданные данные."
               f"2. Передать запакованные данные в метод writeData обёрнутого объекта (wrappee)")
 
-    def read_date(self) -> None:
+    def read_data(self) -> None:
         print(f"1. Получить данные из метода readData обёрнутого объекта (wrappee)."
               f"2. Распаковать их, если они запакованы."
               f"3. Вернуть результат.")
@@ -100,13 +100,13 @@ if __name__ == '__main__':
     compressed_and_encrypted_data_source = CompressionDecorator(encrypted_data_source)
 
     print("Используем FileDataSource:")
-    file_data_source.write_date("Hello, World!")
-    file_data_source.read_date()
+    file_data_source.write_data("Hello, World!")
+    file_data_source.read_data()
 
     print("Используем EncryptedDataSource:")
-    encrypted_data_source.write_date("Hello, World!")
-    encrypted_data_source.read_date()
+    encrypted_data_source.write_data("Hello, World!")
+    encrypted_data_source.read_data()
 
     print("Используем CompressionDecorator поверх EncryptedDataSource:")
-    compressed_and_encrypted_data_source.write_date("Hello, World!")
-    compressed_and_encrypted_data_source.read_date()
+    compressed_and_encrypted_data_source.write_data("Hello, World!")
+    compressed_and_encrypted_data_source.read_data()
