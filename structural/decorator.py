@@ -25,7 +25,7 @@ class DataSource:
     Общий интерфейс компонентов
     """
 
-    def __init__(self, data):
+    def __init__(self, data: str):
         self.data = data
 
     def write_date(self, data: str) -> None:
