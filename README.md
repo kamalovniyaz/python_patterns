@@ -24,7 +24,7 @@
 - [x] Мост (Bridge)
 - [x] Компоновщик (Composite)
 - [x] Декоратор (Decorator)
-- [ ] Фасад (Facade)
+- [x] Фасад (Facade)
 - [ ] Приспособленец (Flyweight)
 - [ ] Заместитель (Proxy)
 
