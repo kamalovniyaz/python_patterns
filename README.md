@@ -25,7 +25,7 @@
 - [x] Компоновщик (Composite)
 - [x] Декоратор (Decorator)
 - [x] Фасад (Facade)
-- [ ] Приспособленец (Flyweight)
+- [x] Легковес | Приспособленец | Кэш (Flyweight)
 - [ ] Заместитель (Proxy)
 
 ### Поведенческие (Behavioral)
