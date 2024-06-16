@@ -91,17 +91,17 @@ class YouTubeManager:
 
     def render_video_page(self, video_id: str) -> None:
         info = self.service.get_video_info(video_id)
-        print(f"Rendering video page for {video_id}: {info}")
+        print(f"Отображение страницы видео для {video_id}: {info}")
         # Логика отображения страницы видеоролика
 
     def render_list_panel(self) -> None:
         video_list = self.service.list_videos()
-        print(f"Rendering list panel with videos: {video_list}")
+        print(f"Отображение панели списка с видеороликами: {video_list}")
         # Логика отображения списка превьюшек видеороликов
 
     def download_video(self, video_id: str) -> None:
         self.service.download_video(video_id)
-        print(f"Downloading video: {video_id}")
+        print(f"Скачивание видео: {video_id}")
 
     def react_on_user_input(self) -> None:
         self.render_video_page("video1")
