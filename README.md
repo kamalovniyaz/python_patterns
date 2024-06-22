@@ -30,7 +30,7 @@
 
 ### Поведенческие (Behavioral)
 
-- [ ] Цепочка Обязанностей (Chain of Responsibility)
+- [x] Цепочка Обязанностей (Chain of Responsibility)
 - [ ] Команда (Command)
 - [ ] Итератор (Iterator)
 - [ ] Посредник (Mediator)
